@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export const MAKE_TODO = 'MAKE_TODO';
+export const REMOVE_TODO = 'REMOVE_TODO';
 
 export default new Vuex.Store({
     state: {
@@ -12,13 +13,31 @@ export default new Vuex.Store({
     mutations: {
         [MAKE_TODO](state, input) {
             const todo =  {
+                id: setId(state),
                 content: input,
                 createdAt: getCurrentDateTime(),
             };
             state.todos.push(todo);
         },
+        [REMOVE_TODO](state, id) {
+            const findOne = state.todos.find(element => {
+                return element.id === id;
+            })
+            const idx = state.todos.indexOf(findOne);
+            if (idx > -1) {
+                state.todos.splice(idx, 1);
+            }
+        }
     },
 })
+
+function setId(state) {
+    if (state.todos.length > 0) {
+        return state.todos[state.todos.length - 1].id + 1;
+    } else {
+        return 1;
+    }
+}
 
 function getCurrentDateTime() {
     let today = new Date();
