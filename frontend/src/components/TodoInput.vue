@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import store, {MAKE_TODO} from "@/store";
+import store, {SAVE_TODO} from "@/store";
 
 export default {
   store,
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     onClickButton() {
-      this.$store.commit(MAKE_TODO, this.input);
+      this.$store.dispatch(SAVE_TODO, this.input);
       this.input = '';
     },
   }
