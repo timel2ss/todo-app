@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  backend:
+    build: ./backend
+    container_name: todo-backend
+    ports:
+      - 8080:8080
+
+  frontend:
+    build: ./frontend
+    container_name: todo-front
+    ports:
+      - 8081:8081
+    depends_on:
+      - backend
